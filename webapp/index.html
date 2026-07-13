@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>شهرام دانلودر</title>
+<style>
+  @font-face {
+    font-family: 'Vazir';
+    src: url('file:///android_asset/Vazirmatn-Regular.ttf');
+  }
+
+  :root{
+    --bg: #0B0C10;
+    --card: #1F2833;
+    --cyan: #00F2FE;
+    --magenta: #FE0979;
+    --text-soft: #C5C6C7;
+    --text-dim: #6b7280;
+  }
+
+  *{ box-sizing: border-box; margin:0; padding:0; }
+
+  html,body{
+    height:100%;
+    background: var(--bg);
+    font-family: 'Vazir', sans-serif;
+    color:#fff;
+    overflow-x: hidden;
+  }
+
+  body{
+    padding: 24px 20px 40px;
+    background:
+      radial-gradient(circle at 15% 8%, rgba(0,242,254,0.10), transparent 40%),
+      radial-gradient(circle at 85% 92%, rgba(254,9,121,0.10), transparent 40%),
+      var(--bg);
+    min-height: 100%;
+  }
+
+  /* Header */
+  .brand-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin: 6px 0 26px;
+  }
+
+  .brand{
+    display:flex;
+    flex-direction:column;
+    gap:2px;
+  }
+
+  .brand-eyebrow{
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    font-family: 'Courier New', monospace;
+  }
+
+  .brand-name{
+    font-size: 24px;
+    font-weight: 900;
+    background: linear-gradient(90deg, var(--cyan), #7ee9ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    line-height: 1.4;
+  }
+
+  .avatar-badge{
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
+    background: var(--card);
+    border: 1px solid rgba(0,242,254,0.35);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:700;
+    font-size: 17px;
+    color: var(--cyan);
+    box-shadow: 0 0 14px rgba(0,242,254,0.25) inset;
+  }
+
+  /* Platform pills */
+  .platforms{
+    display:flex;
+    gap:10px;
+    margin-bottom: 22px;
+  }
+
+  .pill{
+    flex:1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    padding: 12px 8px;
+    border-radius: 14px;
+    background: var(--card);
+    border: 1px solid #2c3543;
+    font-size: 14px;
+    color: var(--text-soft);
+    font-weight: 500;
+  }
+
+  .pill.active{
+    border-color: rgba(254,9,121,0.5);
+    color: #fff;
+    box-shadow: 0 0 16px rgba(254,9,121,0.15) inset;
+  }
+
+  .dot{
+    width:8px; height:8px; border-radius:50%;
+    flex-shrink: 0;
+  }
+  .dot.cyan{ background: var(--cyan); box-shadow: 0 0 8px var(--cyan); }
+  .dot.magenta{ background: var(--magenta); box-shadow: 0 0 8px var(--magenta); }
+
+  /* Input card */
+  .input-card{
+    background: var(--card);
+    border-radius: 20px;
+    padding: 18px 18px 16px;
+    border: 1px solid #2c3543;
+    margin-bottom: 20px;
+  }
+
+  .input-label{
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-bottom: 10px;
+    display:block;
+  }
+
+  .link-row{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background: #171d26;
+    border: 1px dashed #37414f;
+    border-radius: 14px;
+    padding: 6px 14px;
+  }
+
+  .link-row input{
+    flex:1;
+    background:transparent;
+    border:none;
+    outline:none;
+    color:#fff;
+    font-family:'Vazir', sans-serif;
+    font-size: 15px;
+    direction: ltr;
+    text-align: right;
+    padding: 12px 0;
+    width: 100%;
+  }
+
+  .link-row input::placeholder{
+    color: var(--text-dim);
+  }
+
+  .paste-btn{
+    background: rgba(0,242,254,0.12);
+    color: var(--cyan);
+    border: 1px solid rgba(0,242,254,0.4);
+    border-radius: 10px;
+    padding: 8px 14px;
+    font-size: 13px;
+    font-family:'Vazir', sans-serif;
+    font-weight:600;
+    white-space:nowrap;
+    cursor:pointer;
+    flex-shrink: 0;
+  }
+
+  /* Signature: personalized ribbon */
+  .made-for-row{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-top:14px;
+    padding-top:14px;
+    border-top: 1px solid #2c3543;
+    font-size: 12px;
+    color: var(--text-dim);
+    flex-wrap: wrap;
+  }
+
+  .made-for-row b{
+    color: var(--magenta);
+    font-weight:700;
+  }
+
+  /* Main download button with neon glow */
+  .download-btn{
+    width:100%;
+    padding: 20px;
+    border-radius: 18px;
+    border: none;
+    background: linear-gradient(180deg, #00e4f5, #00b8d4);
+    color: #04161a;
+    font-family:'Vazir', sans-serif;
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: 0.3px;
+    cursor:pointer;
+    position:relative;
+    box-shadow:
+      0 0 0 1px rgba(0,242,254,0.5),
+      0 0 20px rgba(0,242,254,0.55),
+      0 0 60px rgba(0,242,254,0.25),
+      0 8px 20px rgba(0,0,0,0.4);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    animation: pulse-glow 2.6s ease-in-out infinite;
+  }
+
+  .download-btn:disabled{
+    opacity: 0.6;
+    animation: none;
+  }
+
+  @keyframes pulse-glow{
+    0%, 100% {
+      box-shadow:
+        0 0 0 1px rgba(0,242,254,0.5),
+        0 0 20px rgba(0,242,254,0.55),
+        0 0 60px rgba(0,242,254,0.25),
+        0 8px 20px rgba(0,0,0,0.4);
+    }
+    50% {
+      box-shadow:
+        0 0 0 1px rgba(0,242,254,0.7),
+        0 0 30px rgba(0,242,254,0.8),
+        0 0 80px rgba(0,242,254,0.35),
+        0 8px 20px rgba(0,0,0,0.4);
+    }
+  }
+
+  .download-btn svg{ width:20px; height:20px; }
+
+  /* Status / progress card */
+  .status-card{
+    margin-top: 18px;
+    background: var(--card);
+    border-radius: 18px;
+    padding: 16px 18px;
+    border: 1px solid #2c3543;
+    display: none;
+  }
+
+  .status-card.show{ display: block; }
+
+  .status-top{
+    display:flex;
+    justify-content:space-between;
+    font-size: 13px;
+    color: var(--text-soft);
+  }
+
+  .status-top span:last-child{
+    color: var(--magenta);
+    font-weight:700;
+    font-family: 'Courier New', monospace;
+  }
+
+  /* Footer tagline */
+  .footer-tag{
+    text-align:center;
+    margin-top: 26px;
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 0.5px;
+  }
+
+  .footer-tag b{
+    color: var(--cyan);
+  }
+</style>
+</head>
+<body>
+
+  <div class="brand-row">
+    <div class="brand">
+      <span class="brand-eyebrow">DOWNLOADER</span>
+      <span class="brand-name">شهرام دانلودر</span>
+    </div>
+    <div class="avatar-badge">ش</div>
+  </div>
+
+  <div class="platforms">
+    <div class="pill active">
+      <span class="dot magenta"></span>
+      اینستاگرام
+    </div>
+    <div class="pill">
+      <span class="dot cyan"></span>
+      تیک‌تاک
+    </div>
+  </div>
+
+  <div class="input-card">
+    <span class="input-label">لینک ویدیو رو اینجا بذار</span>
+    <div class="link-row">
+      <button class="paste-btn" onclick="pasteLink()">پیست</button>
+      <input type="text" id="linkInput" placeholder="https://instagram.com/reel/...">
+    </div>
+
+    <div class="made-for-row">
+      ساخته شده توسط <b>شهرام</b> — ویژه دخترش حِلما 💫
+    </div>
+  </div>
+
+  <button class="download-btn" id="downloadBtn" onclick="startDownload()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="#04161a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 3v12"/>
+      <path d="M7 10l5 5 5-5"/>
+      <path d="M5 21h14"/>
+    </svg>
+    <span id="btnText">دانلود کن</span>
+  </button>
+
+  <div class="status-card" id="statusCard">
+    <div class="status-top">
+      <span id="statusText">در حال دانلود...</span>
+    </div>
+  </div>
+
+  <div class="footer-tag">
+    ساخته و کدنویسی شده با ❤️ توسط <b>شهرام</b>
+  </div>
+
+<script>
+  function pasteLink(){
+    if (window.android) {
+      android.pasteClipboard();
+    }
+  }
+
+  function setPastedText(text){
+    document.getElementById('linkInput').value = text;
+  }
+
+  function startDownload(){
+    const url = document.getElementById('linkInput').value.trim();
+    const btn = document.getElementById('downloadBtn');
+    const btnText = document.getElementById('btnText');
+    const statusCard = document.getElementById('statusCard');
+    const statusText = document.getElementById('statusText');
+
+    if (!url) {
+      statusCard.classList.add('show');
+      statusText.textContent = 'یه لینک وارد کن اول';
+      statusText.style.color = '#FE0979';
+      return;
+    }
+
+    btn.disabled = true;
+    btnText.textContent = 'در حال دانلود...';
+    statusCard.classList.add('show');
+    statusText.textContent = 'در حال دانلود...';
+    statusText.style.color = '#C5C6C7';
+
+    if (window.android) {
+      android.downloadVideo(url);
+    }
+  }
+
+  // Called from Python when download finishes
+  function onDownloadResult(success, message){
+    const btn = document.getElementById('downloadBtn');
+    const btnText = document.getElementById('btnText');
+    const statusText = document.getElementById('statusText');
+
+    btn.disabled = false;
+    btnText.textContent = 'دانلود کن';
+    statusText.textContent = message;
+    statusText.style.color = success ? '#00F2FE' : '#FE0979';
+  }
+</script>
+
+</body>
+</html>
