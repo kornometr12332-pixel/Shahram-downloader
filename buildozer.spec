@@ -1,5 +1,3 @@
-.# SHAHRAM V2
-
 [app]
 
 title = Shahram Downloader
